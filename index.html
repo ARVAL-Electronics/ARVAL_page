@@ -472,30 +472,54 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
     const btn = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
 
-    // Alternar a visibilidade do menu ao clicar no botão
+    // Alternar o menu ao clicar no botão
     btn.addEventListener('click', () => {
         menu.classList.toggle('hidden');
     });
 
-    // Fechar o menu quando o link for clicado
+    // Lidar com cliques nos links do menu mobile
     const mobileLinks = document.querySelectorAll('#mobile-menu a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.add('hidden'); // Fechar o menu
-            // Navegar para a seção correspondente
-            const targetId = link.getAttribute('href').substring(1); // Remove o "#" do href
-            const targetElement = document.getElementById(targetId);
 
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 50, // Ajuste para deixar um pequeno espaçamento no topo
-                    behavior: 'smooth' // Para uma rolagem suave
-                });
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Impede o comportamento padrão do link
+
+            menu.classList.add('hidden'); // Fecha o menu
+
+            const targetId = this.getAttribute('href'); // Mantém o '#' para compatibilidade
+            const targetElement = document.querySelector(targetId);
+
+            if (targetE<script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    // Alternar o menu ao clicar no botão
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Lidar com cliques nos links do menu mobile
+    const mobileLinks = document.querySelectorAll('#mobile-menu a');
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Impede o comportamento padrão do link
+
+            menu.classList.add('hidden'); // Fecha o menu
+
+            const tarlement) {
+                // Pequeno delay para garantir que o menu feche antes do scroll
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }, 100); // Pequeno delay para evitar conflitos com renderização
             }
         });
     });
