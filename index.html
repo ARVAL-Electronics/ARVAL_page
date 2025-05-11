@@ -67,55 +67,56 @@
             margin-top: 0.25rem;
         }
     </style>
+<head>
+    <!-- Tailwind (CDN se não estiver usando compilação local) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<!-- Tailwind (CDN se não estiver usando compilação local) -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <body class="bg-gray-50">
-   <!-- Header/Navigation -->
-<header class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
-    <!-- Camada de escurecimento -->
-    <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
+    <!-- Header/Navigation -->
+    <header class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
+        <!-- Camada de escurecimento -->
+        <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
 
-    <!-- Conteúdo do menu -->
-    <div class="relative z-10 container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-            <!-- Logotipo -->
-            <div id="hero-logo-container">
-                <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto">
+        <!-- Conteúdo do menu -->
+        <div class="relative z-10 container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <!-- Logotipo -->
+                <div id="hero-logo-container">
+                    <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto">
+                </div>
+                <div class="hidden md:block">
+                    <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
+                    <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
+                </div>
             </div>
-            <div class="hidden md:block">
-                <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
-                <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
-            </div>
+
+            <!-- Menu desktop -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#inicio" class="text-white font-medium hover:text-blue-200 transition">Início</a>
+                <a href="#servicos" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
+                <a href="#sobre" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
+                <a href="#contato" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
+                <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
+            </nav>
+
+            <!-- Botão do menu mobile -->
+            <button class="md:hidden text-white" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
 
-        <!-- Menu desktop -->
-        <nav class="hidden md:flex space-x-8">
-            <a href="#inicio" class="text-white font-medium hover:text-blue-200 transition">Início</a>
-            <a href="#servicos" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
-            <a href="#sobre" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
-            <a href="#contato" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
-            <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
-        </nav>
-
-        <!-- Botão do menu mobile -->
-        <button class="md:hidden text-white" id="mobile-menu-button">
-            <i class="fas fa-bars text-2xl"></i>
-        </button>
-    </div>
-
-    <!-- Menu mobile -->
-    <div id="mobile-menu" class="md:hidden hidden bg-gray-900 text-white px-4 py-4 space-y-2">
-        <a href="#inicio" class="block hover:text-blue-200">Início</a>
-        <a href="#servicos" class="block hover:text-blue-200">Serviços</a>
-        <a href="#sobre" class="block hover:text-blue-200">Sobre Nós</a>
-        <a href="#contato" class="block hover:text-blue-200">Contato</a>
-        <a href="Projetos.html" class="block hover:text-blue-200">Projetos</a>
-    </div>
-</header>
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-900 text-white px-4 py-4 space-y-2">
+            <a href="#inicio" class="block hover:text-blue-200">Início</a>
+            <a href="#servicos" class="block hover:text-blue-200">Serviços</a>
+            <a href="#sobre" class="block hover:text-blue-200">Sobre Nós</a>
+            <a href="#contato" class="block hover:text-blue-200">Contato</a>
+            <a href="Projetos.html" class="block hover:text-blue-200">Projetos</a>
+        </div>
+    </header>
  <!-- Hero Section -->
     <section id="inicio" class="gradient-bg text-white py-20">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -473,28 +474,23 @@
     </footer>
 
    <script>
-    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+        // Referências ao botão e ao menu
+        const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
-    });
-</script>
-<!-- Script para menu mobile -->
-<script>
-  const btn = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
 
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
+        // Alterna a visibilidade do menu ao clicar no botão
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
 
-  // Fecha o menu ao clicar em um link
-  const mobileLinks = menu.querySelectorAll('a');
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-    });
-  });
-</script>
+        // Fecha o menu ao clicar em qualquer link do menu mobile
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
 
 </body>
 </html>
