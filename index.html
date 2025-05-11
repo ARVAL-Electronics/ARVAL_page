@@ -246,7 +246,7 @@
                         Nascemos da parceria de profissionais apaixonados por eletrônica e inovação. Com mais de 35 anos de experiência no desenvolvimento de sistemas embarcados e projetos eletrônicos, reunimos um know-how único para oferecer soluções completas e personalizadas.
                     </p>
                     <p class="text-gray-600 mb-6">
-                        Nossa missão é transformar suas ideias em REALIDADE, com qualidade profissional e atenção aos detalhes. Acreditamos que cada projeto es único e merece uma solução sob medida, desenvolvida com a expertise de quem já enfrentou os desafios mais complexos da eletrônica embarcada.
+                        Nossa missão é transformar suas ideias em REALIDADE, com qualidade profissional e atenção aos detalhes. Acreditamos que cada projeto é único e merece uma solução sob medida, desenvolvida com a expertise de quem já enfrentou os desafios mais complexos da eletrônica embarcada.
                     </p>
                     <div class="flex items-center">
                         <div class="flex -space-x-2">
@@ -482,29 +482,35 @@
         menu.classList.toggle('hidden');
     });
 
-    // Lidar com cliques nos links do menu mobile
+    // Lidar com cliques/touch nos links do menu mobile
     const mobileLinks = document.querySelectorAll('#mobile-menu a');
+
     mobileLinks.forEach(link => {
+        // Garantir resposta em dispositivos touch
+        link.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Evita comportamento padrão durante o toque
+        });
+
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Impede o comportamento padrão do link
+
             menu.classList.add('hidden'); // Fecha o menu
 
             const targetId = this.getAttribute('href'); // Ex: #inicio
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // Pequeno delay para garantir que o menu feche antes do scroll
+                // Delay pequeno para garantir que o menu feche antes do scroll
                 setTimeout(() => {
                     window.scrollTo({
                         top: targetElement.offsetTop - 50,
                         behavior: 'smooth'
                     });
-                }, 100); // Pequeno delay para evitar conflitos com renderização
+                }, 100);
             }
         });
     });
 </script>
-
 
 </body>
 </html>
