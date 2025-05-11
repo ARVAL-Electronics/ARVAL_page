@@ -484,35 +484,15 @@
 
     // Lidar com cliques nos links do menu mobile
     const mobileLinks = document.querySelectorAll('#mobile-menu a');
-
     mobileLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Impede o comportamento padrão do link
-
             menu.classList.add('hidden'); // Fecha o menu
 
-            const targetId = this.getAttribute('href'); // Mantém o '#' para compatibilidade
+            const targetId = this.getAttribute('href'); // Ex: #inicio
             const targetElement = document.querySelector(targetId);
 
-            if (targetE<script>
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-
-    // Alternar o menu ao clicar no botão
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
-
-    // Lidar com cliques nos links do menu mobile
-    const mobileLinks = document.querySelectorAll('#mobile-menu a');
-
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Impede o comportamento padrão do link
-
-            menu.classList.add('hidden'); // Fecha o menu
-
-            const tarlement) {
+            if (targetElement) {
                 // Pequeno delay para garantir que o menu feche antes do scroll
                 setTimeout(() => {
                     window.scrollTo({
