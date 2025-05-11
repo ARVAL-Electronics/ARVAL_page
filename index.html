@@ -472,25 +472,7 @@
             </div>
         </div>
     </footer>
-
-   <script>
-        // Referências ao botão e ao menu
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-
-        // Alterna a visibilidade do menu ao clicar no botão
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Fecha o menu ao clicar em qualquer link do menu mobile
-        const mobileLinks = menu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
-    </script>
+    
     <script>
     const btn = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
