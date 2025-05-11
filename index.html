@@ -491,6 +491,34 @@
             });
         });
     </script>
+    <script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    // Alternar a visibilidade do menu ao clicar no botão
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Fechar o menu quando o link for clicado
+    const mobileLinks = document.querySelectorAll('#mobile-menu a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden'); // Fechar o menu
+            // Navegar para a seção correspondente
+            const targetId = link.getAttribute('href').substring(1); // Remove o "#" do href
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50, // Ajuste para deixar um pequeno espaçamento no topo
+                    behavior: 'smooth' // Para uma rolagem suave
+                });
+            }
+        });
+    });
+</script>
+
 
 </body>
 </html>
