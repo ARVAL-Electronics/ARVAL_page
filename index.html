@@ -504,24 +504,26 @@
     });
 </script>
 <!-- Botão flutuante do WhatsApp -->
-<a onclick="openWhatsApp()" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50 cursor-pointer">
-    <i class="fab fa-whatsapp text-2xl"></i>
+<a onclick="abrirWhatsApp()" 
+   class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50 cursor-pointer">
+   <i class="fab fa-whatsapp text-2xl"></i>
 </a>
 
 <script>
-function openWhatsApp() {
-    const urlWeb = "https://wa.me/5515997112439 ";
-    const urlApp = "whatsapp://send?phone=5515997112439&text=Olá!%20Gostaria%20de%20mais%20informações.";
+function abrirWhatsApp() {
+    const numero = '5515997112439';
+    const texto = 'Olá! Gostaria de mais informações.';
+    const urlWeb = `https://wa.me/ ${numero}?text=${encodeURIComponent(texto)}`;
+    const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isIOS) {
+    // Para iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
         window.location.href = urlApp;
         setTimeout(() => {
             window.location.href = urlWeb; // Fallback caso o app não abra
-        }, 250);
+        }, 800);
     } else {
-        window.open(urlWeb, '_blank');
+        window.open(urlWeb, '_blank'); // Android e desktop
     }
 }
 </script>
