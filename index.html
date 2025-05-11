@@ -500,12 +500,9 @@
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // Delay pequeno para garantir que o menu feche antes do scroll
+                // Pequeno delay para garantir que o menu feche antes do scroll
                 setTimeout(() => {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 50,
-                        behavior: 'smooth'
-                    });
+                    window.location.hash = targetId; // Força navegação nativa
                 }, 100);
             }
         });
