@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" x-data>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,7 +50,11 @@
 <body class="bg-gray-50">
 
   <!-- Header/Navigation -->
-  <header x-data="{ mobileMenuOpen: false }" class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
+  <header
+  x-data="menuControl()"
+  x-init="initScroll()"
+  class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50"
+  style="background-image: url('placa_fundo.jpg');">
     <!-- Camada escurecida -->
     <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
 
@@ -538,6 +542,24 @@ function abrirWhatsApp() {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+  </script>
+
+<script>
+    function menuControl() {
+      return {
+        mobileMenuOpen: false,
+        initScroll() {
+          this.scrollToSection = (id) => {
+            const el = document.getElementById(id);
+            if (el) {
+              setTimeout(() => {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }, 250); // espera o menu fechar visualmente
+            }
+          };
+        }
+      };
     }
   </script>
 
