@@ -76,6 +76,7 @@
         }
     </style>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Tailwind (CDN se não estiver usando compilação local) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -532,11 +533,10 @@ function abrirWhatsApp() {
 
 <script>
     document.getElementById('contactForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // Impede envio padrão
+      e.preventDefault();
     
       const form = e.target;
     
-      // Enviar para FormSubmit via fetch
       fetch("https://formsubmit.co/ajax/arval.electronics@gmail.com", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -550,20 +550,34 @@ function abrirWhatsApp() {
       })
       .then(response => {
         if (response.ok) {
-          document.getElementById('successMessage').classList.remove('hidden');
-          form.reset(); // limpa o formulário
-    
-          // Espera 3 segundos e volta ao topo da página (ou redireciona)
-          setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            document.getElementById('successMessage').classList.add('hidden');
-          }, 3000);
+          Swal.fire({
+            icon: 'success',
+            title: 'Mensagem enviada!',
+            text: 'Em breve entraremos em contato.',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#2563eb'
+          }).then(() => {
+            form.reset();
+            setTimeout(() => {
+            document.documentElement.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          });
         } else {
-          alert("Erro ao enviar. Tente novamente.");
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao enviar',
+            text: 'Tente novamente mais tarde.',
+            confirmButtonText: 'Fechar'
+          });
         }
       })
       .catch(error => {
-        alert("Erro ao conectar. Verifique sua conexão.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro de conexão',
+          text: 'Verifique sua internet ou tente novamente.',
+          confirmButtonText: 'Fechar'
+        });
       });
     });
     </script>
