@@ -91,12 +91,13 @@
      x-transition:leave="transition ease-in duration-150"
      x-transition:leave-start="opacity-100 transform translate-y-0"
      x-transition:leave-end="opacity-0 transform -translate-y-2"
+     @click.away="mobileMenuOpen = false"
      class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
      
-     <a href="#inicio" @click="mobileMenuOpen = false; setTimeout(() => { document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' }) }, 200)" class="block hover:text-blue-200">Início</a>
-     <a href="#servicos" @click="mobileMenuOpen = false; setTimeout(() => { document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' }) }, 200)" class="block hover:text-blue-200">Serviços</a>
-     <a href="#sobre" @click="mobileMenuOpen = false; setTimeout(() => { document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' }) }, 200)" class="block hover:text-blue-200">Sobre Nós</a>
-     <a href="#contato" @click="mobileMenuOpen = false; setTimeout(() => { document.getElementById('contato').scrollIntoView({ behavior: 'smooth' }) }, 200)" class="block hover:text-blue-200">Contato</a>
+     <a href="#inicio" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Início</a>
+     <a href="#servicos" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Serviços</a>
+     <a href="#sobre" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Sobre Nós</a>
+     <a href="#contato" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('contato').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Contato</a>
      <a href="Projetos.html" @click="mobileMenuOpen = false" class="block hover:text-blue-200">Projetos</a>
 </div>
   </header>
