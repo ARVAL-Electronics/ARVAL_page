@@ -94,13 +94,33 @@
      @click.away="mobileMenuOpen = false"
      class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
      
-     <a href="#inicio" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Início</a>
-     <a href="#servicos" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Serviços</a>
-     <a href="#sobre" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Sobre Nós</a>
-     <a href="#contato" @click="(e) => { e.preventDefault(); mobileMenuOpen = false; setTimeout(() => { document.getElementById('contato').scrollIntoView({ behavior: 'smooth' }) }, 150)}" class="block hover:text-blue-200">Contato</a>
+     <a href="#inicio" @click="handleMenuClick('inicio')" class="block hover:text-blue-200">Início</a>
+     <a href="#servicos" @click="handleMenuClick('servicos')" class="block hover:text-blue-200">Serviços</a>
+     <a href="#sobre" @click="handleMenuClick('sobre')" class="block hover:text-blue-200">Sobre Nós</a>
+     <a href="#contato" @click="handleMenuClick('contato')" class="block hover:text-blue-200">Contato</a>
      <a href="Projetos.html" @click="mobileMenuOpen = false" class="block hover:text-blue-200">Projetos</a>
 </div>
-  </header>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('menu', () => ({
+    mobileMenuOpen: false,
+    handleMenuClick(sectionId) {
+      this.mobileMenuOpen = false;
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          // Adiciona um pequeno offset para considerar o header fixo
+          const yOffset = -80; 
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({top: y, behavior: 'smooth'});
+        }
+      }, 200);
+    }
+  }));
+});
+</script>
+  <header x-data="menu" class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
 
   <!-- Hero Section -->
   <section id="inicio" class="gradient-bg text-white py-20">
