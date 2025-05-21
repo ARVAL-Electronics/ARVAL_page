@@ -128,7 +128,7 @@ class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
                         Com experiência em microcontroladores como ESP32, STM32, PIC, AVR, 8051, Nordic e Raspberry Pico, oferecemos desde o projeto do circuito eletrônico, layout de PCB, até o desenvolvimento de firmware em C, C++ e Python.
                     </p>
                     <p class="mb-4">
-                        Tambemos criamos dashboards para monitoramento remoto, aplicativos IoT com Wi-Fi e Bluetooth, e soluções completas para automação residencial, comercial e pequenas automaçòes industriais.
+                        Tambem criamos dashboards para monitoramento remoto, aplicativos IoT com Wi-Fi e Bluetooth, e soluções completas para automação residencial, comercial e pequenas automaçòes industriais.
                     </p>
                     <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
                         <p class="font-semibold">Nossa missão é clara:</p>
@@ -543,25 +543,16 @@ function abrirWhatsApp() {
         el.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  </script>
-
-<script>
+    
     function menuControl() {
       return {
         mobileMenuOpen: false,
         initScroll() {
-          this.scrollToSection = (id) => {
-            const el = document.getElementById(id);
-            if (el) {
-              setTimeout(() => {
-                el.scrollIntoView({ behavior: 'smooth' });
-              }, 250); // espera o menu fechar visualmente
-            }
-          };
+          this.scrollToSection = scrollToSection;
         }
       };
     }
-  </script>
+    </script>
 
 </body>
 </html>
