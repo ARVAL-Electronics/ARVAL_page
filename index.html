@@ -51,8 +51,7 @@
 
   <!-- Header/Navigation -->
   <header
-  x-data="menuControl()"
-  x-init="initScroll()"
+  x-data="menu"
   class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50"
   style="background-image: url('placa_fundo.jpg');">
     <!-- Camada escurecida -->
@@ -78,27 +77,25 @@
         <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
       </nav>
 
-      <!-- Botão do menu mobile -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
-        <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
-      </button>
+      <button @click="toggleMenu()" class="md:hidden text-white focus:outline-none">
+  <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
+</button>
     </div>
 
-    <!-- Menu mobile -->
-<div x-show="mobileMenuOpen"
-x-transition:enter="transition ease-out duration-200"
-x-transition:enter-start="opacity-0 transform -translate-y-2"
-x-transition:enter-end="opacity-100 transform translate-y-0"
-x-transition:leave="transition ease-in duration-150"
-x-transition:leave-start="opacity-100 transform translate-y-0"
-x-transition:leave-end="opacity-0 transform -translate-y-2"
-class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
-
-<a href="#inicio" @click.prevent="mobileMenuOpen = false; scrollToSection('inicio')" class="block hover:text-blue-200">Início</a>
-<a href="#servicos" @click.prevent="mobileMenuOpen = false; scrollToSection('servicos')" class="block hover:text-blue-200">Serviços</a>
-<a href="#sobre" @click.prevent="mobileMenuOpen = false; scrollToSection('sobre')" class="block hover:text-blue-200">Sobre Nós</a>
-<a href="#contato" @click.prevent="mobileMenuOpen = false; scrollToSection('contato')" class="block hover:text-blue-200">Contato</a>
-<a href="Projetos.html" @click.prevent="mobileMenuOpen = false" class="block hover:text-blue-200">Projetos</a>
+    <div x-show="mobileMenuOpen"
+     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="opacity-0 transform -translate-y-2"
+     x-transition:enter-end="opacity-100 transform translate-y-0"
+     x-transition:leave="transition ease-in duration-150"
+     x-transition:leave-start="opacity-100 transform translate-y-0"
+     x-transition:leave-end="opacity-0 transform -translate-y-2"
+     class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
+     
+     <a href="#inicio" @click="closeMenu(); scrollToSection('inicio')" class="block hover:text-blue-200">Início</a>
+     <a href="#servicos" @click="closeMenu(); scrollToSection('servicos')" class="block hover:text-blue-200">Serviços</a>
+     <a href="#sobre" @click="closeMenu(); scrollToSection('sobre')" class="block hover:text-blue-200">Sobre Nós</a>
+     <a href="#contato" @click="closeMenu(); scrollToSection('contato')" class="block hover:text-blue-200">Contato</a>
+     <a href="Projetos.html" @click="closeMenu()" class="block hover:text-blue-200">Projetos</a>
 </div>
   </header>
  <!-- Hero Section -->
@@ -465,6 +462,33 @@ class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
    class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50 cursor-pointer">
    <i class="fab fa-whatsapp text-2xl"></i>
 </a>
+
+<script>
+// Mova este script para antes do fechamento do </body> mas depois do Alpine.js
+
+// Função de rolagem suave
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// Inicialização do Alpine.js
+document.addEventListener('alpine:init', () => {
+  Alpine.data('menu', () => ({
+    mobileMenuOpen: false,
+    
+    toggleMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen;
+    },
+    
+    closeMenu() {
+      this.mobileMenuOpen = false;
+    }
+  }));
+});
+</script>
 
 <script>
 function abrirWhatsApp() {
