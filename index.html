@@ -51,7 +51,7 @@
 
   <!-- Header/Navigation -->
   <header
-  x-data="menu"
+  x-data="{ mobileMenuOpen: false }"
   class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50"
   style="background-image: url('placa_fundo.jpg');">
     <!-- Camada escurecida -->
@@ -489,6 +489,25 @@
       }
     }));
   });
+  </script>
+
+  <script>
+  function abrirWhatsApp() {
+      const numero = '5515997112439';
+      const texto = 'Olá! Gostaria de mais informações.';
+      const urlWeb = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+      const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
+
+      // Para iOS
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          window.location.href = urlApp;
+          setTimeout(() => {
+              window.location.href = urlWeb; // Fallback caso o app não abra
+          }, 800);
+      } else {
+          window.open(urlWeb, '_blank'); // Android e desktop
+      }
+  }
   </script>
 
   <script>
