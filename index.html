@@ -78,7 +78,7 @@
       </nav>
 
       <!-- Botão do menu mobile -->
-      <button @click="toggleMenu()" class="md:hidden text-white focus:outline-none">
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
         <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
       </button>
     </div>
@@ -91,13 +91,14 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 transform translate-y-0"
          x-transition:leave-end="opacity-0 transform -translate-y-2"
+         @click.away="mobileMenuOpen = false"
          class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
          
-         <a href="#inicio" @click.prevent="navigateTo('inicio')" class="block hover:text-blue-200">Início</a>
-         <a href="#servicos" @click.prevent="navigateTo('servicos')" class="block hover:text-blue-200">Serviços</a>
-         <a href="#sobre" @click.prevent="navigateTo('sobre')" class="block hover:text-blue-200">Sobre Nós</a>
-         <a href="#contato" @click.prevent="navigateTo('contato')" class="block hover:text-blue-200">Contato</a>
-         <a href="Projetos.html" @click="closeMenu()" class="block hover:text-blue-200">Projetos</a>
+         <a href="#inicio" @click="mobileMenuOpen = false; $nextTick(() => { document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' }) })" class="block hover:text-blue-200">Início</a>
+         <a href="#servicos" @click="mobileMenuOpen = false; $nextTick(() => { document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' }) })" class="block hover:text-blue-200">Serviços</a>
+         <a href="#sobre" @click="mobileMenuOpen = false; $nextTick(() => { document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' }) })" class="block hover:text-blue-200">Sobre Nós</a>
+         <a href="#contato" @click="mobileMenuOpen = false; $nextTick(() => { document.getElementById('contato').scrollIntoView({ behavior: 'smooth' }) })" class="block hover:text-blue-200">Contato</a>
+         <a href="Projetos.html" @click="mobileMenuOpen = false" class="block hover:text-blue-200">Projetos</a>
     </div>
   </header>
 
@@ -455,42 +456,6 @@
       </div>
   </footer>
 
-  <!-- Botão flutuante do WhatsApp -->
-  <a onclick="abrirWhatsApp()" 
-     class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50 cursor-pointer">
-     <i class="fab fa-whatsapp text-2xl"></i>
-  </a>
-
-  <script>
-  // Função de rolagem suave
-  function scrollToSection(id) {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // Inicialização do Alpine.js
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('menu', () => ({
-      mobileMenuOpen: false,
-      
-      toggleMenu() {
-        this.mobileMenuOpen = !this.mobileMenuOpen;
-      },
-      
-      closeMenu() {
-        this.mobileMenuOpen = false;
-      },
-      
-      navigateTo(selector) {
-        this.closeMenu();
-        scrollToSection(selector);
-      }
-    }));
-  });
-  </script>
-
   <script>
   function abrirWhatsApp() {
       const numero = '5515997112439';
@@ -500,25 +465,6 @@
 
       // Para iOS
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-          window.location.href = urlApp;
-          setTimeout(() => {
-              window.location.href = urlWeb; // Fallback caso o app não abra
-          }, 800);
-      } else {
-          window.open(urlWeb, '_blank'); // Android e desktop
-      }
-  }
-  </script>
-
-  <script>
-  function abrirWhatsApp() {
-      const numero = '5515997112439';
-      const texto = 'Olá! Gostaria de mais informações.';
-      const urlWeb = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-      const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
-
-      // Para iOS
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent) {
           window.location.href = urlApp;
           setTimeout(() => {
               window.location.href = urlWeb; // Fallback caso o app não abra
@@ -579,6 +525,9 @@
         });
       });
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
