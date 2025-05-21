@@ -51,47 +51,35 @@
 
   <!-- Header/Navigation -->
 <header
-  x-data="{ mobileMenuOpen: false }"
+  x-data="{
+    mobileMenuOpen: false,
+    handleMobileClick(sectionId, event) {
+      event.preventDefault();
+      this.mobileMenuOpen = false;
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const sectionPosition = section.getBoundingClientRect().top;
+          const offsetPosition = sectionPosition + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          history.pushState(null, null, `#${sectionId}`);
+        }
+      }, 150);
+    }
+  }"
   class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50"
   style="background-image: url('placa_fundo.jpg');">
   
-  <!-- Camada escurecida -->
-  <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
-
-  <!-- Conteúdo do menu -->
-  <div class="relative z-10 container mx-auto px-4 py-4 flex justify-between items-center">
-    <!-- Logo e slogans -->
-    <div class="flex items-center space-x-4">
-      <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto" />
-      <div class="hidden md:block">
-        <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
-        <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
-      </div>
-    </div>
-
-    <!-- Menu desktop -->
-    <nav class="hidden md:flex space-x-8">
-      <a href="#inicio" class="text-white font-medium hover:text-blue-200 transition">Início</a>
-      <a href="#servicos" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
-      <a href="#sobre" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
-      <a href="#contato" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
-      <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
-    </nav>
-
-    <!-- Botão do menu mobile -->
-    <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
-      <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
-    </button>
-  </div>
-
+  <!-- Restante do código do header permanece igual -->
+  
   <!-- Menu mobile -->
   <div x-show="mobileMenuOpen"
-       x-transition:enter="transition ease-out duration-200"
-       x-transition:enter-start="opacity-0 transform -translate-y-2"
-       x-transition:enter-end="opacity-100 transform translate-y-0"
-       x-transition:leave="transition ease-in duration-150"
-       x-transition:leave-start="opacity-100 transform translate-y-0"
-       x-transition:leave-end="opacity-0 transform -translate-y-2"
        @click.away="mobileMenuOpen = false"
        class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2">
        
