@@ -53,25 +53,9 @@
   <header
     x-data="{
       mobileMenuOpen: false,
-      handleMobileClick(sectionId, event) {
-        event.preventDefault();
-        this.mobileMenuOpen = false;
-        setTimeout(() => {
-          const section = document.getElementById(sectionId);
-          if (section) {
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const sectionPosition = section.getBoundingClientRect().top;
-            const offsetPosition = sectionPosition + window.pageYOffset - headerHeight;
-            
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-            
-            history.pushState(null, null, `#${sectionId}`);
-          }
-        }, 150);
-      }
+      handleMobileClick(sectionId) {
+  this.mobileMenuOpen = false;
+}
     }"
     class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50"
     style="background-image: url('placa_fundo.jpg');">
@@ -118,7 +102,7 @@
   @click.away="mobileMenuOpen = false"
   class="md:hidden bg-gray-900 text-white px-4 py-4 space-y-2"
 >
-  <a href="#inicio" @click="handleMobileClick('inicio', $event)" class="block hover:text-blue-200">Início</a>
+  <a href="#inicio" @click="handleMobileClick('inicio')" class="block hover:text-blue-200">Início</a>
   <a href="#servicos" @click="handleMobileClick('servicos', $event)" class="block hover:text-blue-200">Serviços</a>
   <a href="#sobre" @click="handleMobileClick('sobre', $event)" class="block hover:text-blue-200">Sobre Nós</a>
   <a href="#contato" @click="handleMobileClick('contato', $event)" class="block hover:text-blue-200">Contato</a>
