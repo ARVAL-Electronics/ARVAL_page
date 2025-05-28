@@ -44,6 +44,83 @@
       color: #4b5563;
       margin-top: 0.25rem;
     }
+    
+    /* Estilo do botão flutuante do WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp-float:hover {
+      background-color: #128C7E;
+      transform: scale(1.1);
+    }
+    
+    .whatsapp-float::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 2px solid #25d366;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      opacity: 0;
+    }
+    
+    .whatsapp-float:hover::after {
+      animation: none;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      70% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+    }
+    
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+    }
   </style>
   <style>
     [x-cloak] { display: none !important; }
@@ -52,6 +129,12 @@
 </head>
 
 <body class="bg-gray-50">
+  <!-- Botão flutuante do WhatsApp -->
+  <a href="https://wa.me/5515997112439" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Fale conosco no WhatsApp</span>
+  </a>
+
   <header class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
     <!-- Camada de escurecimento (overlay) -->
     <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
