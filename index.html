@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" x-data="{ mobileMenuOpen: false }">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,32 +17,9 @@
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-  <!-- Estilos personalizados -->
   <style>
     .gradient-bg {
       background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
-    }
-    .logo {
-      max-height: 70px;
-      width: auto;
-    }
-    .slogan-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-left: 1rem;
-      text-align: center;
-    }
-    .main-slogan {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #2563eb;
-    }
-    .sub-slogan {
-      font-size: 0.875rem;
-      color: #4b5563;
-      margin-top: 0.25rem;
     }
     
     /* Estilo do botão flutuante do WhatsApp */
@@ -70,38 +47,6 @@
       transform: scale(1.1);
     }
     
-    .whatsapp-float::after {
-      content: "";
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      border: 2px solid #25d366;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-      opacity: 0;
-    }
-    
-    .whatsapp-float:hover::after {
-      animation: none;
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-      70% {
-        transform: scale(1.1);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-    }
-    
     .whatsapp-tooltip {
       position: absolute;
       right: 70px;
@@ -123,36 +68,37 @@
     }
 
     /* Estilos para o menu mobile */
-    header {
-      position: relative;
-      overflow: visible;
-      z-index: 50;
-    }
-
-    /* Menu mobile */
     .mobile-menu {
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      background-color: rgba(17, 24, 39, 0.95);
+      background-color: rgba(17, 24, 39, 0.98);
       backdrop-filter: blur(5px);
       z-index: 40;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      max-height: 0;
     }
-
-    /* Melhorias para o menu mobile */
-    .md\:hidden {
-      display: none;
+    
+    .mobile-menu.open {
+      max-height: 500px;
+      padding: 1rem 0;
     }
-
-    @media (max-width: 767px) {
-      .md\:hidden {
-        display: block;
-      }
+    
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
     }
-  </style>
-  <style>
+    
+    .mobile-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #93c5fd;
+    }
+    
     [x-cloak] { display: none !important; }
   </style>
 </head>
@@ -164,77 +110,52 @@
     <span class="whatsapp-tooltip">Fale conosco no WhatsApp</span>
   </a>
 
-  <header class="bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
+  <header class="sticky top-0 z-50 bg-cover bg-center bg-no-repeat shadow-sm" style="background-image: url('placa_fundo.jpg');">
     <!-- Camada de escurecimento (overlay) -->
     <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
   
     <!-- Conteúdo do menu -->
-    <div class="relative z-10 container mx-auto px-4 py-4 flex justify-between items-center" x-data="{
-      mobileMenuOpen: false,
-      handleNavClick(sectionId, event) {
-        event.preventDefault();
-        this.mobileMenuOpen = false;
-        
-        const id = sectionId.replace('#', '');
-        const section = document.getElementById(id);
-        
-        if (section) {
-          const headerHeight = document.querySelector('header').offsetHeight;
-          const offsetPosition = section.offsetTop - headerHeight;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-          
-          history.pushState(null, null, sectionId);
-        }
-      }
-    }">
-      <!-- Logo e slogans -->
-      <div class="flex items-center space-x-4">
-        <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto" />
-        <div class="hidden md:block">
-          <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
-          <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
+    <div class="relative z-10 container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo e slogans -->
+        <div class="flex items-center space-x-4">
+          <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto" />
+          <div class="hidden md:block">
+            <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
+            <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
+          </div>
         </div>
+  
+        <!-- Menu desktop -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#inicio" @click="mobileMenuOpen = false" class="text-white font-medium hover:text-blue-200 transition">Início</a>
+          <a href="#servicos" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
+          <a href="#sobre" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
+          <a href="#contato" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
+          <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
+        </nav>
+  
+        <!-- Botão do menu mobile -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+          <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
+        </button>
       </div>
   
-      <!-- Menu desktop -->
-      <nav class="hidden md:flex space-x-8">
-        <a href="#inicio" @click="handleNavClick('#inicio', $event)" class="text-white font-medium hover:text-blue-200 transition">Início</a>
-        <a href="#servicos" @click="handleNavClick('#servicos', $event)" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
-        <a href="#sobre" @click="handleNavClick('#sobre', $event)" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
-        <a href="#contato" @click="handleNavClick('#contato', $event)" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
-        <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
-      </nav>
-  
-      <!-- Botão do menu mobile -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
-        <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
-      </button>
-    </div>
-  
-    <!-- Menu mobile -->
-    <div x-show="mobileMenuOpen" x-cloak
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 transform -translate-y-2"
-         x-transition:enter-end="opacity-100 transform translate-y-0"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 transform translate-y-0"
-         x-transition:leave-end="opacity-0 transform -translate-y-2"
-         @click.away="mobileMenuOpen = false"
-         class="mobile-menu md:hidden px-4 py-4 space-y-2">
-         
-         <a href="#inicio" @click="handleNavClick('#inicio', $event)" class="block hover:text-blue-200 py-2 px-4 rounded transition">Início</a>
-         <a href="#servicos" @click="handleNavClick('#servicos', $event)" class="block hover:text-blue-200 py-2 px-4 rounded transition">Serviços</a>
-         <a href="#sobre" @click="handleNavClick('#sobre', $event)" class="block hover:text-blue-200 py-2 px-4 rounded transition">Sobre Nós</a>
-         <a href="#contato" @click="handleNavClick('#contato', $event)" class="block hover:text-blue-200 py-2 px-4 rounded transition">Contato</a>
-         <a href="Projetos.html" @click="mobileMenuOpen = false" class="block hover:text-blue-200 py-2 px-4 rounded transition">Projetos</a>
+      <!-- Menu mobile -->
+      <div x-show="mobileMenuOpen" x-cloak
+           :class="{'open': mobileMenuOpen}"
+           class="mobile-menu md:hidden"
+           @click.away="mobileMenuOpen = false">
+           
+           <a href="#inicio" @click="mobileMenuOpen = false" class="block">Início</a>
+           <a href="#servicos" @click="mobileMenuOpen = false" class="block">Serviços</a>
+           <a href="#sobre" @click="mobileMenuOpen = false" class="block">Sobre Nós</a>
+           <a href="#contato" @click="mobileMenuOpen = false" class="block">Contato</a>
+           <a href="Projetos.html" @click="mobileMenuOpen = false" class="block">Projetos</a>
+      </div>
     </div>
   </header>
 
-  <!-- Restante do conteúdo permanece igual -->
   <!-- Hero Section -->
   <section id="inicio" class="gradient-bg text-white py-20">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -590,26 +511,28 @@
   </footer>
 
   <script>
-  function abrirWhatsApp() {
-    const numero = '5515997112439';
-    const texto = 'Olá! Gostaria de mais informações.';
-    const urlWeb = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-    const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
-
-    // Para iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      window.location.href = urlApp;
-      setTimeout(() => {
-        window.location.href = urlWeb; // Fallback caso o app não abra
-      }, 800);
-    } else {
-      window.open(urlWeb, '_blank'); // Android e desktop
+    // Função para rolar suavemente para as seções
+    function scrollToSection(sectionId) {
+      const section = document.querySelector(sectionId);
+      if (section) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        window.scrollTo({
+          top: section.offsetTop - headerHeight,
+          behavior: 'smooth'
+        });
+      }
     }
-  }
-  </script>
 
-  <script>
-    document.getElementById('contactForm').addEventListener('submit', function (e) {
+    // Adiciona event listeners para os links de navegação
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToSection(this.getAttribute('href'));
+      });
+    });
+
+    // Formulário de contato
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
     
       const form = e.target;
@@ -635,9 +558,6 @@
             confirmButtonColor: '#2563eb'
           }).then(() => {
             form.reset();
-            setTimeout(() => {
-              document.documentElement.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
           });
         } else {
           Swal.fire({
@@ -657,7 +577,23 @@
         });
       });
     });
-  </script>
 
+    // WhatsApp
+    function abrirWhatsApp() {
+      const numero = '5515997112439';
+      const texto = 'Olá! Gostaria de mais informações.';
+      const urlWeb = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+      const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
+
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        window.location.href = urlApp;
+        setTimeout(() => {
+          window.location.href = urlWeb;
+        }, 800);
+      } else {
+        window.open(urlWeb, '_blank');
+      }
+    }
+  </script>
 </body>
 </html>
