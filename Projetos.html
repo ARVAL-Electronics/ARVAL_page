@@ -20,6 +20,15 @@
         .back-button:hover {
             transform: translateX(-5px);
         }
+        /* Estilo para o menu mobile */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 500px;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -41,7 +50,7 @@
             </div>
             
             <nav class="hidden md:flex space-x-8">
-                <a href="index.html"  class="back-button flex items-center text-white font-medium hover:text-blue-200 transition">
+                <a href="index.html" class="back-button flex items-center text-white font-medium hover:text-blue-200 transition">
                     <i class="fas fa-arrow-left mr-2"></i> Voltar
                 </a>
             </nav>
@@ -49,6 +58,15 @@
             <button class="md:hidden text-white" id="mobile-menu-button">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
+        </div>
+
+        <!-- Menu Mobile (adicionado) -->
+        <div id="mobile-menu" class="md:hidden relative z-10 bg-black bg-opacity-70 w-full">
+            <div class="container mx-auto px-4 py-4">
+                <a href="index.html" class="block py-2 text-white font-medium hover:text-blue-200 transition">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </a>
+            </div>
         </div>
     </header>
 
@@ -66,8 +84,10 @@
                     <p class="text-gray-600 mb-4">
                         Projeto Finalizado – Módulo de Controle Bluetooth com ESP32
                     </p>
+                    <p>
                         Uma entrega da ARVAL:
                     </p>
+                    <p>
                         um sistema embarcado robusto e inteligente, feito sob medida para controle de câmera com precisão mecânica.
                         
                         🛠️ Detalhes da Placa:
@@ -85,7 +105,7 @@
                         Sensor de corrente para leitura em tempo real do consumo do motor
                         
                         📲 A comunicação com o aplicativo no tablet é feita via Bluetooth, garantindo controle completo e seguro do sistema.
-                        🎯 Todo o firmware foi desenvolvido em C++, com foco em confiabilidade, tempo real e integração total dos periféricos.
+                        � Todo o firmware foi desenvolvido em C++, com foco em confiabilidade, tempo real e integração total dos periféricos.
                         
                         🔍 A câmera IP instalada na ponta do eixo envia imagens diretamente ao app, oferecendo visão em tempo real para o operador.
                         
@@ -107,7 +127,6 @@
                     <p class="text-gray-600 mb-4">
                         Em construção
                     </p>
-                    
                 </div>
             </div>
         </div>
@@ -144,7 +163,17 @@
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            menu.classList.toggle('active');
+            
+            // Alternar ícone entre hamburger e X
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
     </script>
 </body>
