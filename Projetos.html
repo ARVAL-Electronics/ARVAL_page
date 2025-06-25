@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos - ARVAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        /* Estilo para o menu mobile */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-50" style="background-image: url('placa_fundo.jpg');">
+        <!-- Camada de escurecimento (overlay) -->
+        <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
+        
+        <!-- Conteúdo do menu -->
+        <div class="relative z-10 container mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- LOGOTIPO -->
+                <div id="hero-logo-container" class="mb-8">
+                    <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-80 h-70">
+                </div>
+                <div class="slogan-container w-full text-center">
+                    <p class="main-slogan text-2xl md:text-3xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
+                    <p class="sub-slogan text-gray-100">Transformamos ideias em realidade</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="back-button flex items-center text-white font-medium hover:text-blue-200 transition">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </a>
+            </nav>
+            
+            <button class="md:hidden text-white" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile (adicionado) -->
+        <div id="mobile-menu" class="md:hidden relative z-10 bg-black bg-opacity-70 w-full">
+            <div class="container mx-auto px-4 py-4">
+                <a href="index.html" class="block py-2 text-white font-medium hover:text-blue-200 transition">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-16">Nossos Projetos</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Projeto 1 -->
+            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="h-64 overflow-hidden">
+                    <img src="placa_arval_sf.png" alt="Projeto1" class="w-80 h-60 object-cover block mx-auto">
+                </div>
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-3 text-center">Controle de câmera</h2>
+                    <p class="text-gray-600 mb-4">
+                        Projeto Finalizado – Módulo de Controle Bluetooth com ESP32
+                    </p>
+                    <p>
+                        Uma entrega da ARVAL:
+                    </p>
+                    <p>
+                        um sistema embarcado robusto e inteligente, feito sob medida para controle de câmera com precisão mecânica.
+                        
+                        🛠️ Detalhes da Placa:
+                        
+                        ESP32 como microcontrolador principal
+                        
+                        Entrada de alimentação robusta (12V a 24V) com proteção contra curto
+                        
+                        3 entradas de fim de curso para controle de posição
+                        
+                        2 relés de direção para motor DC 12V / 5A
+                        
+                        Relé auxiliar para acionar cargas externas
+                        
+                        Sensor de corrente para leitura em tempo real do consumo do motor
+                        
+                        📲 A comunicação com o aplicativo no tablet é feita via Bluetooth, garantindo controle completo e seguro do sistema.
+                        � Todo o firmware foi desenvolvido em C++, com foco em confiabilidade, tempo real e integração total dos periféricos.
+                        
+                        🔍 A câmera IP instalada na ponta do eixo envia imagens diretamente ao app, oferecendo visão em tempo real para o operador.
+                        
+                        💡 Aplicação ideal para ambientes industriais e sistemas de inspeção com alta precisão.
+                        
+                        Um projeto entregue com excelência.
+                        Transformamos ideias em soluções inteligentes.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="text-center mt-16">
+            <a href="index.html" class="back-button inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar para a página inicial
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-3">
+                        <i class="fas fa-microchip text-white"></i>
+                    </div>
+                    <p class="text-lg font-bold">Seu sonho é nosso problema</p>
+                    <p class="text-sm text-gray-400">Você sonha, a gente solda, programa e entrega.</p>
+                    <p class="mt-4 text-gray-400 max-w-md">
+                        Transformando ideias em soluções eletrônicas.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ARVAL Soluções Eletrônicas. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+            
+            // Alternar ícone entre hamburger e X
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>

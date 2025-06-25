@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR" x-data="{ mobileMenuOpen: false }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soluções Eletrônicas e Automação</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    }
+    
+    /* Estilo do botão flutuante do WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp-float:hover {
+      background-color: #128C7E;
+      transform: scale(1.1);
+    }
+    
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+    }
+
+    /* Estilos para o menu mobile */
+    .mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: rgba(17, 24, 39, 0.98);
+      backdrop-filter: blur(5px);
+      z-index: 40;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      max-height: 0;
+    }
+    
+    .mobile-menu.open {
+      max-height: 500px;
+      padding: 1rem 0;
+    }
+    
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #93c5fd;
+    }
+    
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Botão flutuante do WhatsApp -->
+  <a href="https://wa.me/5515997112439" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Fale conosco no WhatsApp</span>
+  </a>
+
+  <header class="sticky top-0 z-50 bg-cover bg-center bg-no-repeat shadow-sm" style="background-image: url('placa_fundo.jpg');">
+    <!-- Camada de escurecimento (overlay) -->
+    <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
+  
+    <!-- Conteúdo do menu -->
+    <div class="relative z-10 container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo e slogans -->
+        <div class="flex items-center space-x-4">
+          <img src="arvalbrancosemfundo.png" alt="Logotipo ARVAL" class="w-40 h-auto" />
+          <div class="hidden md:block">
+            <p class="text-xl md:text-2xl font-bold text-blue-100">Projetamos a solução para seu sonho</p>
+            <p class="text-sm text-gray-100">Transformamos ideias em realidade</p>
+          </div>
+        </div>
+  
+        <!-- Menu desktop -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#inicio" @click="mobileMenuOpen = false" class="text-white font-medium hover:text-blue-200 transition">Início</a>
+          <a href="#servicos" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Serviços</a>
+          <a href="#sobre" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Sobre Nós</a>
+          <a href="#contato" @click="mobileMenuOpen = false" class="text-white hover:text-blue-200 font-medium transition">Contato</a>
+          <a href="Projetos.html" class="text-white hover:text-blue-200 font-medium transition">Projetos</a>
+        </nav>
+  
+        <!-- Botão do menu mobile -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+          <i :class="mobileMenuOpen ? 'fa fa-times' : 'fa fa-bars'" class="text-2xl"></i>
+        </button>
+      </div>
+  
+      <!-- Menu mobile -->
+      <div x-show="mobileMenuOpen" x-cloak
+           :class="{'open': mobileMenuOpen}"
+           class="mobile-menu md:hidden"
+           @click.away="mobileMenuOpen = false">
+           
+           <a href="#inicio" @click="mobileMenuOpen = false" class="block">Início</a>
+           <a href="#servicos" @click="mobileMenuOpen = false" class="block">Serviços</a>
+           <a href="#sobre" @click="mobileMenuOpen = false" class="block">Sobre Nós</a>
+           <a href="#contato" @click="mobileMenuOpen = false" class="block">Contato</a>
+           <a href="Projetos.html" @click="mobileMenuOpen = false" class="block">Projetos</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="gradient-bg text-white py-20">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+      <div class="md:w-1/2 mb-12 md:mb-40">
+        <div class="flex items-center gap-6 mb-8">
+          <img src="arvalsemfundo.png" alt="Logotipo ARVAL" class="w-80 h-50 block mx-auto">
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Você imagina. A gente projeta, constrói e entrega tecnologia sob medida.</h2>
+        <p class="text-xl mb-8">Transformamos ideias em realidade com soluções eletrônicas personalizadas e sistemas de automação.
+          A engenharia feita com paixão e precisão.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contato" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-full font-bold shadow-lg transition">Fale Conosco</a>
+          <a href="#servicos" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-full font-bold transition">Nossos Serviços</a>
+        </div>
+      </div>
+      
+      <div class="md:w-1/2 relative">
+        <div class="bg-white p-6 rounded-xl shadow-xl max-w-md mx-auto text-gray-800">
+          <h3 class="text-2xl font-bold mb-4">Sobre a ARVAL</h3>
+          <p class="mb-4">
+            A ARVAL é uma empresa especializada em soluções eletrônicas personalizadas, sistemas embarcados e automação inteligente. Atuamos no desenvolvimento completo de projetos que integram hardware, firmware e software, transformando ideias em produtos prontos para o mercado.
+          </p>
+          <p class="mb-4">
+            Com experiência em microcontroladores como ESP32, STM32, PIC, AVR, 8051, Nordic e Raspberry Pico, oferecemos desde o projeto do circuito eletrônico, layout de PCB, até o desenvolvimento de firmware em C, C++ e Python.
+          </p>
+          <p class="mb-4">
+            Também criamos dashboards para monitoramento remoto, aplicativos IoT com Wi-Fi e Bluetooth, e soluções completas para automação residencial, comercial e pequenas automações industriais.
+          </p>
+          <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+            <p class="font-semibold">Nossa missão é clara:</p>
+            <p>Transformar sonhos em realidade com inovação, qualidade e compromisso técnico.</p>
+          </div>
+          <p class="mt-4">
+            Atendemos clientes em todo o Brasil com soluções sob medida, confiáveis e eficientes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="servicos" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Nossos Serviços</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Soluções completas em eletrônica e automação para atender suas necessidades específicas. Desenvolvemos a tecnologia que você precisa</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-project-diagram text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Desenvolvimento de Circuitos</h3>
+          <p class="text-gray-600 text-center">
+            Projetamos circuitos eletrônicos personalizados para sua aplicação específica, desde protótipos até produção em escala.
+          </p>
+        </div>
+        
+        <!-- Service 2 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-robot text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Sistemas de Automação</h3>
+          <p class="text-gray-600 text-center">
+            Soluções de automação comercial, residencial e pequenas automações industriais para aumentar eficiência e reduzir custos operacionais.
+          </p>
+        </div>
+        
+        <!-- Service 3 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-microchip text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Projeto de PCB</h3>
+          <p class="text-gray-600 text-center">
+            Desenvolvimento profissional de placas de circuito impresso (PCB) com otimização de layout e desempenho.
+          </p>
+        </div>
+        
+        <!-- Service 4 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-code text-yellow-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Desenvolvimento de Firmware</h3>
+          <p class="text-gray-600 text-center">
+            Programação de microcontroladores e sistemas embarcados sob medida para sua aplicação.
+          </p>
+        </div>
+        
+        <!-- Service 5 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-tachometer-alt text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Dashboards de Monitoramento</h3>
+          <p class="text-gray-600 text-center">
+            Interfaces visuais personalizadas para monitoramento e controle de seus sistemas automatizados.
+          </p>
+        </div>
+        
+        <!-- Service 6 -->
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <i class="fas fa-cogs text-indigo-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-center mb-3">Soluções para Hobbyistas</h3>
+          <p class="text-gray-600 text-center">
+            Projetos personalizados para entusiastas de eletrônica e makers, ajudando a tornar suas ideias em realidade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="sobre" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-12 md:mb-0">
+          <h2 class="text-3xl font-bold text-gray-800 mb-6">Nossa História</h2>
+          <p class="text-gray-600 mb-4">
+            Nascemos da parceria de profissionais apaixonados por eletrônica e inovação. Com mais de 35 anos de experiência no desenvolvimento de sistemas embarcados e projetos eletrônicos, reunimos um know-how único para oferecer soluções completas e personalizadas.
+          </p>
+          <p class="text-gray-600 mb-6">
+            Nossa missão é transformar suas ideias em REALIDADE, com qualidade profissional e atenção aos detalhes. Acreditamos que cada projeto é único e merece uma solução sob medida, desenvolvida com a expertise de quem já enfrentou os desafios mais complexos da eletrônica embarcada.
+          </p>
+          <div class="flex items-center">
+            <div class="flex -space-x-2">
+              <div class="relative"></div>
+              <div class="relative"></div>
+            </div>
+            <div class="ml-4">
+              <p class="font-medium text-gray-800">Nossa Equipe</p>
+              <p class="text-sm text-gray-600">Somos dois engenheiros mecatrônicos que atuamos na área de pesquisa e desenvolvimento de equipamentos eletrônicos, firmware e software.
+                Um é pós graduado em automação industrial e o outro cursa pós graduação em segurança cibernética. Temos, juntos, mais de 35 anos de experiência na área.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="md:w-1/2 md:pl-12">
+          <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">Nossos Valores</h3>
+            
+            <div class="space-y-6">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-lightbulb text-blue-600"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h4 class="font-medium text-gray-800">Inovação</h4>
+                  <p class="text-gray-600 mt-1">Buscamos constantemente novas tecnologias e abordagens criativas.</p>
+                </div>
+              </div>
+              
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-handshake text-green-600"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h4 class="font-medium text-gray-800">Compromisso</h4>
+                  <p class="text-gray-600 mt-1">Entregamos exatamente o que prometemos, no prazo combinado.</p>
+                </div>
+              </div>
+              
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-cogs text-purple-600"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h4 class="font-medium text-gray-800">Qualidade</h4>
+                  <p class="text-gray-600 mt-1">Cada projeto passa por rigorosos testes e controle de qualidade.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contato" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-6">Entre em Contato</h2>
+          <p class="text-gray-600 mb-8">
+            Tem um projeto em mente? Quer saber mais sobre nossos serviços? Preencha o formulário ou utilize nossos canais de contato.
+          </p>
+          
+          <div class="space-y-6">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-map-marker-alt text-blue-600"></i>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-medium text-gray-800">Endereço</h4>
+                <p class="text-gray-600 mt-1">Sorocaba/SP</p>
+              </div>
+            </div>
+            
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-phone-alt text-green-600"></i>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-medium text-gray-800">Telefone</h4>
+                <p class="text-gray-600 mt-1">(15) 99711-2439</p>
+              </div>
+            </div>
+            
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-envelope text-purple-600"></i>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-medium text-gray-800">Email</h4>
+                <p class="text-gray-600 mt-1">arval.electronics@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+            <h4 class="font-medium text-gray-800 mb-4">Nos siga nas redes sociais</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/arval.electronics/" target="_blank" class="bg-pink-600 text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-pink-700 transition">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center text-white hover:bg-blue-800 transition">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="md:w-1/2">
+          <form id="contactForm" class="bg-gray-50 p-8 rounded-xl shadow-sm">
+            <div class="mb-6">
+              <label for="name" class="block text-gray-700 font-medium mb-2">Nome</label>
+              <input type="text" id="name" name="nome" required class="w-full px-4 py-3 rounded-lg border border-gray-300" placeholder="Seu nome completo">
+            </div>
+          
+            <div class="mb-6">
+              <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300" placeholder="seu@email.com">
+            </div>
+          
+            <div class="mb-6">
+              <label for="phone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+              <input type="tel" id="phone" name="telefone" class="w-full px-4 py-3 rounded-lg border border-gray-300" placeholder="(00) 00000-0000">
+            </div>
+          
+            <div class="mb-6">
+              <label for="service" class="block text-gray-700 font-medium mb-2">Serviço de Interesse</label>
+              <select id="service" name="servico" class="w-full px-4 py-3 rounded-lg border border-gray-300">
+                <option value="">Selecione um serviço</option>
+                <option value="circuitos">Desenvolvimento de Circuitos</option>
+                <option value="automacao">Automação Industrial/Comercial</option>
+                <option value="pcb">Projeto de PCB</option>
+                <option value="firmware">Desenvolvimento de Firmware</option>
+                <option value="dashboard">Dashboards de Monitoramento</option>
+                <option value="hobby">Projetos para Hobbyistas</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+          
+            <div class="mb-6">
+              <label for="message" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+              <textarea id="message" name="mensagem" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300" placeholder="Descreva seu projeto ou dúvida..."></textarea>
+            </div>
+          
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+              Enviar Mensagem
+            </button>
+          
+            <p id="successMessage" class="mt-4 text-green-600 font-medium hidden">Sua mensagem foi enviada com sucesso!</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-8 md:mb-0">
+          <div class="flex items-center">
+            <div id="footer-logo-container" class="mr-3">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <i class="fas fa-microchip text-white"></i>
+              </div>
+            </div>
+            <div>
+              <p class="text-lg font-bold">Seu sonho é nosso problema</p>
+              <p class="text-sm text-gray-400">Você sonha, a gente solda, programa e entrega.</p>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-400 max-w-md">
+            Transformando ideias em soluções eletrônicas.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-12">
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Serviços</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Circuitos Eletrônicos</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Projeto de PCB</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Automação</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Firmware</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Empresa</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Sobre Nós</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Contato</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 ARVAL Soluções Eletrônicas. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Função para rolar suavemente para as seções
+    function scrollToSection(sectionId) {
+      const section = document.querySelector(sectionId);
+      if (section) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        window.scrollTo({
+          top: section.offsetTop - headerHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Adiciona event listeners para os links de navegação
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToSection(this.getAttribute('href'));
+      });
+    });
+
+    // Formulário de contato
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+    
+      const form = e.target;
+    
+      fetch("https://formsubmit.co/ajax/arval.electronics@gmail.com", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: form.nome.value,
+          email: form.email.value,
+          telefone: form.telefone.value,
+          servico: form.servico.value,
+          mensagem: form.mensagem.value
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Mensagem enviada!',
+            text: 'Em breve entraremos em contato.',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#2563eb'
+          }).then(() => {
+            form.reset();
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao enviar',
+            text: 'Tente novamente mais tarde.',
+            confirmButtonText: 'Fechar'
+          });
+        }
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro de conexão',
+          text: 'Verifique sua internet ou tente novamente.',
+          confirmButtonText: 'Fechar'
+        });
+      });
+    });
+
+    // WhatsApp
+    function abrirWhatsApp() {
+      const numero = '5515997112439';
+      const texto = 'Olá! Gostaria de mais informações.';
+      const urlWeb = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+      const urlApp = `whatsapp://send?phone=${numero}&text=${encodeURIComponent(texto)}`;
+
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        window.location.href = urlApp;
+        setTimeout(() => {
+          window.location.href = urlWeb;
+        }, 800);
+      } else {
+        window.open(urlWeb, '_blank');
+      }
+    }
+  </script>
+</body>
+</html>
